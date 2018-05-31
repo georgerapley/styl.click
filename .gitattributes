@@ -1,0 +1,4 @@
+js/lib/* linguist-vendored
+knockout/* linguist-vendored
+css/jquery-ui.min.css linguist-vendored
+css/sp-bootstrap.min.css linguist-vendored

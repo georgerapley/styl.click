@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ASOS Product Explorer</title>
+    <meta charset="utf-8">
+    <meta property="og:site_name" content="ASOS Product Explorer">
+    <meta property="og:title" content="Product Explorer is a fashion discovery tool to explore the ASOS catalogue by browsing products through a relationship tree">
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" href="css/sp-bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body id="mainn">
+    <div id="fb-root"></div>
+    <div class="main-container">
+        <div class="left">
+            <nav id="navbarup" class="navbar navbar-default navbar-static-top" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="">
+                            <span class="navbar-logo"></span>
+                            <span class="navbar-title">Product Explorer</span>
+                        </a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling on mobile -->
+                    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                        <!-- SEARCH BAR -->
+                        <div id="search" class="row">
+                            <form id="search-product" class="form-horizontal col-sm-6 col-md-6" role="form">
+                                <input id="product-search" class="form-control" placeholder="Search for a Product">
+                            </form>
+                        </div>
+                        <!-- ---------- -->
+                        <ul class="nav navbar-nav navbar-left">
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="#" data-bind="visible: !isLoggedIn()" onClick="AE.login()">Login</a>
+                            </li>
+                            <li class="dropdown" data-bind="visible: isLoggedIn()">
+                                <img class="profile-image" data-bind="attr:{src: userImage}" />
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span id="display-name" data-bind="text: displayName"></span>
+                                    <span class="icon-chevron-down"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-left" role="menu">
+                                    <li>
+                                        <a href="#" onClick="AE.logout()">Log Out</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container -->
+            </nav>
+            <div id="rightpane">
+                <!-- Product Info -->
+                <div data-bind="visible: isProductInfoVisible" id="infobox">
+                    <!-- Sidebar Product Image -->
+                    <a target="_blank" data-bind="attr: { href:asosPdpLink }">
+                        <img data-bind="attr: { src: productImg }" id="sidebarProductImage" />
+                    </a>
+                    <div id="productNameContainer">
+                        <a target="_blank" data-bind="text: productName, attr: { href:asosPdpLink }" id="productName"> </a>
+                    </div>
+                    <span data-bind="text: productPrice" id="productPrice"></span>
+                    <span data-bind="text: prevProductPrice" id="prevProductPrice"></span>
+                    <hr class="sidebarHorizontalRow" id="sidebarConfigDivider">
+                    <div id="config">
+                        <div id="range-container">
+                            <div class="range-desc">Max #products per branch:</div>
+                            <div class="range-bar">
+                                <div id="range-indicator">5</div>
+                                <input type="range" class="slider" min="1" max="10" step="1" oninput="AE.changeNumberOfProducts(this.value)" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="repeat-products-container">
+                        Show products already explored:
+                        <div id="checkbox-div">
+                            <input type="checkbox" id="repeatProducts" onclick="AE.setRepeatProducts()">
+                        </div>
+                    </div>
+
+                    <hr class="sidebarHorizontalRow" id="sidebarConfigDivider">
+
+                    <div class="algo-selector">
+                        <span>Related Products Algorithm:</span>
+                        <ul>
+                            <li>
+                                <input type="radio" name='algo' id='algo1' value='YMAL_mf_sameCat' onclick="AE.setSimilarityAlgorithm()">
+                                <label for="algo1">YMAL (MF)</label>
+                                <div class="check"></div>
+                            </li>
+
+                            <li>
+                                <input type="radio" name='algo' id='algo2' value='YMAL_mf_sameCat_noBr' onclick="AE.setSimilarityAlgorithm()">
+                                <label for="algo2">YMAL (MF w/o Business Rules (BR))</label>
+                                <div class="check"></div>
+                            </li>
+
+                            <li>
+                                <input type="radio" name='algo' id='algo3' value='YMAL_mf_anyCat_noBr' onclick="AE.setSimilarityAlgorithm()">
+                                <label for="algo3">YMAL (MF w/o BR + Any Category)</label>
+                                <div class="check"></div>
+                            </li>
+
+                            <li>
+                                <input type="radio" name='algo' id='algo4' value='OOSA_v2b' onclick="AE.setSimilarityAlgorithm()">
+                                <label for="algo4">v2 - Out-of-Stock Alternatives (v2buy)</label>
+                                <div class="check"></div>
+                            </li>
+
+                            <li>
+                                <input type="radio" name='algo' id='algo5' value='complementaryItems_mf' onclick="AE.setSimilarityAlgorithm()">
+                                <label for="algo5">v3 - Complementary Items (MF)</label>
+                                <div class="check"></div>
+                            </li>
+
+                            <li>
+                                <input type="radio" name='algo' id='algo6' value='impulseItems_mf' onclick="AE.setSimilarityAlgorithm()">
+                                <label for="algo6">v4 - Impulse Items (MF)</label>
+                                <div class="check"></div>
+                            </li>
+                            <div id='comingSoon'>Coming Soon:</div>
+                            <div id='comingSoonAlgos'>
+                                <li>
+                                    <input type="radio" name='algo' id='algo7' value='styleMatch' onclick="AE.setSimilarityAlgorithm()" disabled>
+                                    <label for="algo7">Visual Similarity (Visenze Style Match)</label>
+                                    <div class="check"></div>
+                                </li>
+                                <li>
+                                    <input type="radio" name='algo' id='algo8' value='YMAL_mf_inMySize1' onclick="AE.setSimilarityAlgorithm()" disabled>
+                                    <label for="algo8">YMAL (MF + "in My Size" v1)</label>
+                                    <div class="check"></div>
+                                </li>
+                                <li>
+                                    <input type="radio" name='algo' id='algo9' value='YMAL_fRank_collaborative' onclick="AE.setSimilarityAlgorithm()" disabled>
+                                    <label for="algo9">YMAL (F-Rank - Collaborative)</label>
+                                    <div class="check"></div>
+                                </li>
+                                <li>
+                                    <input type="radio" name='algo' id='algo10' value='YMAL_mf_stackedEnsemble1' onclick="AE.setSimilarityAlgorithm()" disabled>
+                                    <label for="algo10">YMAL (MF + 2nd Layer)</label>
+                                    <div class="check"></div>
+                                </li>
+                                <li>
+                                    <input type="radio" name='algo' id='algo11' value='outfitRecs_v1' onclick="AE.setSimilarityAlgorithm()" disabled>
+                                    <label for="algo11">Outfit Recs (v1)</label>
+                                    <div class="check"></div>
+                                </li>
+                                <li>
+                                    <input type="radio" name='algo' id='algo12' value='YMAL_fRank_hybrid' onclick="AE.setSimilarityAlgorithm()" disabled>
+                                    <label for="algo12">YMAL (F-Rank - Hybrid)</label>
+                                    <div class="check"></div>
+                                </li>
+                                <li>
+                                    <input type="radio" name='algo' id='algo13' value='YMAL_fRank_content' onclick="AE.setSimilarityAlgorithm()" disabled>
+                                    <label for="algo13">YMAL (F-Rank - Content)</label>
+                                    <div class="check"></div>
+                                </li>
+
+                            </div>
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+            <div id="tree-container"></div>
+            <!-- <div id="share-div">    
+           <button type="button" class="btn btn-primary btn-sm" onClick="AE.createPlaylistModal()">    
+             Share
+           </button>   
+         </div>
+-->
+        </div>
+</body>
+<script src="./knockout/dist/knockout.js"></script>
+<script src="./js/lib/jquery-1.10.2.min.js"></script>
+<script src="./js/lib/jquery-ui-1.11.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.12/d3.min.js"></script>
+<script src="js/util.js"></script>
+<script src="js/dndTree.js"></script>
+<!-- <script src="js/oauth-manager.js"></script>
+<script src="js/oauth-config.js"></script> -->
+<script src="js/local-api.js"></script>
+<script src="js/main.js"></script>
+
+</html>
