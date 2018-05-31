@@ -13,7 +13,7 @@ Running Locally
 Not necessary but strongly suggested:
 Create a [virtualenv] (http://docs.python-guide.org/en/latest/dev/virtualenvs/) or use an existing one before installing dependencies of this project.
 
-Need to set your bearer token for authentication in calling ASOS Recommendations APIs (bearerToken var in server.py)
+Need to set your bearer token for authentication in calling ASOS Recommendations APIs (```bearerToken``` var in server.py)
 
 ASOS API calls are proxied through a flask server. Need to start the server first:
 ```
@@ -27,7 +27,10 @@ Also need to serve the (client-side) files at the root of the project. Change di
 python -m http.server 9000
 ```
 
-Can then seed product to explore from by using 0.0.0.0:9000/?product_id={ProductID you want to start from}
+Can seed products via the URL ```product_id``` parameter 
+e.g. http://0.0.0.0:9000/?product_id=9578628
+
+Search functionality to be developed
 
 App
 ===
