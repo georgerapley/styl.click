@@ -1,10 +1,10 @@
-ASOS Product Explorer
+Styl.click
 ===============
 
-ASOS Product Explorer is a tool that helps you explore the ASOS catalogue and the relationships between products, while discovering new styles you might like to wear along the way!
+Styl.click is a tool that helps you explore the ASOS catalogue and the relationships between products, while discovering new styles you might like to wear along the way!
 Start from any product and quickly navigate through trees of related products.
 
-The app pulls related product information from ASOS' Recommendation APIs. Have a look at the documentation at - (TBC)
+The app pulls related product information from ASOS' public Recommendation APIs
 
 Cloned from [Artist Explorer](https://github.com/fsahin/artist-explorer)
 
