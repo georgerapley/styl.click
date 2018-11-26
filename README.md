@@ -34,11 +34,10 @@ Search functionality to be developed
 
 App
 ===
-<img src="./img/ScreenShot.png" width="750px"/>
+<img src="https://cdn.glitch.com/d3d71846-8d7d-43b8-9b1b-ef83fce8c54a%2FScreenShot.png?1543205797983" width="750px"/>
 
 Consumed Libraries:
 --------------
 * [d3](http://d3js.org/)
 * [Flask](http://flask.pocoo.org/)
 * [Knockout](http://knockoutjs.com/)
-

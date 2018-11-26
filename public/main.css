@@ -5,11 +5,19 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: futura;
+  font-family: "futura-pt-n4", "futura-pt", futura, Tahoma, Geneva, Verdana, Arial, sans-serif;
 }
 
 h4 {
   color: #2d2d2d;
+}
+
+a {
+  color: #000;
+}
+
+a:hover {
+  color: #919496; /* grey */
 }
 
 /* dndTree */
@@ -20,7 +28,7 @@ h4 {
 
 .node circle {
   fill: #fff;
-  stroke: black;
+  stroke: #aaa;
   stroke-width: 2px;
 }
 
@@ -74,7 +82,7 @@ h4 {
 }
 
 .product-label {
-  padding-left: 60px;
+  padding-left: 15px;
   line-height: 60px;
 }
 
@@ -134,12 +142,13 @@ h4 {
   float: right;
   top: 0px;
   right: 0px;
-  width: 350px;
+  width: 250px;
   height: 100%;
   position: relative;
   padding: 15px 30px 30px 30px;
   overflow-y: scroll;
   overflow-x: hidden;
+  background-color: #fff;
 }
 
 .slider {
@@ -165,10 +174,11 @@ h4 {
 }
 
 #range-container {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 3px;
   height: 25px;
+  margin-left: 10px;
   clear: both;
+  display: inline-block;
 }
 
 .range-desc {
@@ -178,7 +188,7 @@ h4 {
 }
 
 #range-indicator {
-  margin-right: 10px;
+  margin-left: 10px;
   font-size: 16px;
   text-align: center;
 }
@@ -186,6 +196,7 @@ h4 {
 .range-bar {
   float: right;
   width: 100px;
+  color: white;
   display: flex;
 }
 
@@ -228,11 +239,11 @@ input[type="range"] {
   user-select: none;
   background: transparent;
   border-radius: 6px;
-  border-color: black;
+  border-color: #808080;
   border-width: 0.5px;
   border-style: solid;
   height: 6px;
-  background-image: -webkit-gradient( linear, left top, right top, color-stop(0.5, #2e2f33), color-stop(0.5, #fff));
+  background-image: -webkit-gradient( linear, left top, right top, color-stop(0.5, #fff), color-stop(0.5, #fff));
 }
 
 /* prettify range bar */
@@ -251,7 +262,7 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 #sidebarProductImage {
-  width: 90%;
+  width: 100%;
   border-radius: 20px;
   margin: auto;
   margin-top: 10px;
@@ -291,9 +302,11 @@ input[type='range']::-webkit-slider-thumb {
 
 #infobox {
   margin-top: 5px;
-  text-align: left;
+  text-align: center;
   font-size: 14px;
-  height: 150%;
+  height: 90%;
+  width: 90%;
+  float: right;
 }
 
 #infobox li {
@@ -355,7 +368,7 @@ input[type='range']::-webkit-slider-thumb {
   display: flex;
   position: relative;
   float: left;
-  width: 100%;
+  width: 80px;
   height: auto;
 }
 
@@ -472,12 +485,6 @@ input[type='range']::-webkit-slider-thumb {
   }
 }
 
-@media (min-width: 1200px) {
-  .container {
-    width: 100%;
-  }
-}
-
 @media (max-width: 1300px) {
   .navbar-left {
     display: none;
@@ -496,4 +503,78 @@ input[type='range']::-webkit-slider-thumb {
   margin: 0;
   padding: 0;
   outline: 0;
+}
+
+#lightbox-overlay {
+	position:absolute;
+	top:0;
+	left:0;
+	height:100%;
+	width:100%;
+	background:#000;
+	opacity:0;
+	filter:alpha(opacity=0);
+	z-index:50;
+}
+
+#share-buttons img {
+width: 35px;
+padding: 5px;
+border: 0;
+box-shadow: 0;
+display: inline;
+}
+
+#share-buttons {
+  display: inline-block;
+  float:right;
+  text-align:center;
+  margin-top: 15px;
+  margin-right: 55px;
+}
+
+.container {
+  display: inline-block;
+  min-width: 680px;
+      width: 70%;
+    margin-top: 15px;
+    margin-left: 8%;
+}
+
+#made-by {
+  position: fixed;
+  bottom: 5px;
+  right: 10px;
+  font-size: 12px;
+}
+
+/* LOGO */
+.navbar-logo{
+  width:127px;
+  height:30px;
+  background-image:url('https://cdn.glitch.com/d3d71846-8d7d-43b8-9b1b-ef83fce8c54a%2Fstyl-click-white-logo-final.png?1534378205650');
+  background-repeat:no-repeat;
+  font:0/0 a;
+  color:transparent;
+  text-shadow:none;
+  background-color:transparent;
+  border:0;
+  background-size:127px 30px;
+  float:left;
+  margin-top: 3px;
+}
+
+@media (min-width:768px) {
+  .navbar-logo {
+    width:127px;
+    height:30px;
+    background-size:127px 30px
+  }
+}
+
+@media (min-width:992px) {
+  .navbar-logo {
+    width:127px;
+    height:30px
+  }
 }
