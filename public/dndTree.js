@@ -5,7 +5,7 @@ var dndTree = (function () {
     var i = 0;
     var duration = 750;
     var root;
-    var rightPaneWidth = 350;
+    var rightPaneWidth = 250;
 
     var exploredProductIds = [];
 
@@ -93,9 +93,7 @@ var dndTree = (function () {
         return {
             'product': product,
             'children': null,
-
         }
-
     };
 
     function isProduct(d) {
@@ -117,7 +115,6 @@ var dndTree = (function () {
             removeExpandedId(node);
         });
     }
-
 
     // Toggle children function
     function toggleChildren(d) {
@@ -142,10 +139,10 @@ var dndTree = (function () {
     function update(source) {
         var levelWidth = [1];
         var childCount = function (level, n) {
-            if (n.children && n.children.length > 0) {
-                if (levelWidth.length <= level + 1) levelWidth.push(0);
-
-                levelWidth[level + 1] += n.children.length;
+          if (n.children && n.children.length > 0) {
+            if (levelWidth.length <= level + 1) 
+              levelWidth.push(0);
+            levelWidth[level + 1] += n.children.length;
                 n.children.forEach(function (d) {
                     childCount(level + 1, d);
                 });
@@ -153,7 +150,7 @@ var dndTree = (function () {
         };
 
         childCount(0, root);
-        var newHeight = d3.max(levelWidth) * 200; /* 100 */
+        var newHeight = d3.max(levelWidth) * 160; /* 100 HEIGHT/SPACE/GAP/WIDTH */
         tree = tree.size([newHeight, viewerWidth]);
 
         // Compute the new tree layout.
@@ -171,9 +168,9 @@ var dndTree = (function () {
                 return d.id || (d.id = ++i);
             });
 
-        // Enter any new nodes at the parent's previous position.
+        /* Enter any new nodes at the parent's previous position. */
         var nodeEnter = node.enter().append("g")
-            // .call(dragListener)
+            //.call(dragListener)
             .attr("class", "node")
             .attr("transform", function (d) {
                 return "translate(" + source.y0 + "," + source.x0 + ")";
@@ -205,7 +202,6 @@ var dndTree = (function () {
             .append("circle")
             .attr("r", 50); /* 50 */
 
-
         nodeEnter.append("image")
             .attr("xlink:href", function (d) {
                 if (d && d.product && d.product.product) {
@@ -220,7 +216,7 @@ var dndTree = (function () {
             /* size & positioning of image within nodes */
 
             .attr("x", "-50px") /* -32px */
-            .attr("y", "-63px") /* -32px */
+            .attr("y", "-66px") /* -32px */
             .attr("clip-path", "url(#clipCircle" + clipPathId + ")")
             .attr("width", 100) /* 64 */
 
@@ -411,16 +407,6 @@ var dndTree = (function () {
 
         "getRoot": function () {
             return serializeTree();
-        },
-
-        "setRootData": function (rootData) {
-            exploredProductIds = []
-            root = {}
-            initWithData(rootData, root);
-            root.x0 = viewerHeight / 2;
-            root.y0 = 0;
-            update(root);
-            centerNode(root);
         },
 
         "resizeOverlay": function () {
